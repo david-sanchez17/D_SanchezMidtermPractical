@@ -2,104 +2,70 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform cameraTransform;
-
-    //Help management movement
+    //Movement
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float jumpForce = 7f;
-    [SerializeField] private float rotationSpeed = 10f;
 
-    
-
+    //Ground Check
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.3f;
+    [SerializeField] private LayerMask groundMask;
 
     private Rigidbody rb;
-    private Vector3 movement;
-    private bool isGrounded = true;
+    private bool isGrounded;
+    private bool canJump = true;
     private bool canMove = true;
 
-   private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        //Prevents player from tipping
         rb.freezeRotation = true;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
-    // Update is called once per frame
-private void Update()
+    void Update()
     {
-       if (!canMove)
-        {
+        if (!canMove)
             return;
-        }
-        HandleMovementInput();
+
+        CheckGround();
+
         HandleJump();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!canMove)
-        {
             return;
-        }
-        MovePlayer();
+        HandleMovement();
     }
-    private void HandleMovementInput()
+
+    void HandleMovement()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
 
-        //Ignores cam tilt
-        forward.y = 0f;
-        right.y = 0f;
+        forward.y = 0;
+        right.y = 0;
 
         forward.Normalize();
         right.Normalize();
-        movement = forward * vertical + right * horizontal;
 
-        if (movement.magnitude > 1f)
-        {
+        Vector3 movement = forward * vertical + right * horizontal;
+
+        if (movement.magnitude > 1) 
             movement.Normalize();
-        }
-    }
-    private void MovePlayer()
-    {
-        Vector3 velocity = rb.linearVelocity;
-        velocity.x = movement.x * moveSpeed;
-        velocity.z = movement.z * moveSpeed;
+        Vector3 velocity = movement * moveSpeed;
+        velocity.y = rb.linearVelocity.y;
 
         rb.linearVelocity = velocity;
-
-        if (movement.magnitude > 0.1f)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(movement);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
-        }
-    }
-    private void HandleJump()
-    {
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void HandleJump()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
-    public void DisableMovement()
-    {
-        canMove = false;
-        rb.linearVelocity = Vector3.zero;
+        
     }
 }
