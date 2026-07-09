@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: -7.47}
+  m_LocalPosition: {x: 0, y: 1.13, z: -8.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -525,6 +525,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1048253468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1048253470}
+  - component: {fileID: 1048253469}
+  m_Layer: 0
+  m_Name: ObstacleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1048253469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048253468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238dedf0cc74fd04787ea4d4c67f7b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
+  obstaclePrefab: {fileID: 504295427278468683, guid: a26b6b1289a1e1e4d94223da92c2e3e2, type: 3}
+  numberOfObstacles: 5
+  minX: -18
+  maxX: 18
+  minZ: -18
+  maxZ: 18
+  spawnHeight: 0.5
+--- !u!4 &1048253470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048253468}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.99464, y: -0, z: -2.62042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1228035462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -753,6 +804,115 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9d3c5356596f254081f18a5394eced8, type: 3}
+--- !u!1 &2126487380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2126487382}
+  - component: {fileID: 2126487381}
+  m_Layer: 0
+  m_Name: CoinSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2126487381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126487380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706fa1cceb86c78438cbfb185c3bf25f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinSpawner
+  coinPrefabs: []
+  startingCoins: 5
+  spawnInterval: 3
+  minX: -18
+  maxX: 18
+  minZ: -18
+  maxZ: 18
+  spawnHeight: 1
+--- !u!4 &2126487382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126487380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.30747, y: 0, z: -4.82801}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2016242099490121996
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.2303
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.0935
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.82801
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5181467
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.49022654
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.4816751
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.50910807
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -1.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -86.827
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095454585429190560, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 89.944
+      objectReference: {fileID: 0}
+    - target: {fileID: 7013711717035158475, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
+      propertyPath: m_Name
+      value: Coin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33f3935d3b700cc4db2f701b3e8a0759, type: 3}
 --- !u!1001 &5887101478358917397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -827,3 +987,6 @@ SceneRoots:
   - {fileID: 1228035462}
   - {fileID: 1997920886}
   - {fileID: 1984212657}
+  - {fileID: 1048253470}
+  - {fileID: 2126487382}
+  - {fileID: 2016242099490121996}
