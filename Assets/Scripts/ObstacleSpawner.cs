@@ -14,7 +14,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(SpawnObstacle) 0f, spawnInterval);
+        InvokeRepeating(nameof(SpawnObstacle), 0f, spawnInterval);
     }
 
     private void SpawnObstacle()
@@ -41,5 +41,26 @@ public class ObstacleSpawner : MonoBehaviour
             obstacleScript.SetSpawner(this);
         }
         currentObstacleCount++;
+    }
+
+    public void ObstacleDestroyed()
+    {
+        currentObstacleCount--;
+
+        if (currentObstacleCount <0)
+        {
+            currentObstacleCount = 0;
+        }
+
+        if (spawningEnabled)
+        {
+            SpawnObstacle();
+        }
+    }
+
+    public void StopSpawning()
+    {
+        spawningEnabled = false;
+        CancelInvoke();
     }
 }

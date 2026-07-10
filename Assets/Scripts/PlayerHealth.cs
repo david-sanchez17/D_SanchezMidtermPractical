@@ -2,41 +2,47 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
+    //Health
+    [SerializeField] private int maxHealth = 20;
+
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private CoinSpawner coinSpawner;
+    [SerializeField] private ObstacleSpawner obstacleSpawner;
 
     private int currentHealth;
+    private bool isDead = false;
 
-    private PlayerController playerController;
-
-  private void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
-        playerController = GetComponent<PlayerController>();
     }
-
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        Debug.Log("Health: " + currentHealth);
-        if (currentHealth <= 0)
+        if (isDead)
         {
-            Die();
+            return;
         }
     }
 
     private void Die()
     {
-        currentHealth = 0;
-        Debug.Log("YOU DIED");
-        //Stop player movement
-        if (playerController !=null)
+        isDead = true;
+
+        if(playerController != null)
         {
             playerController.DisableMovement();
         }
-
-       
+        if (coinSpawner != null)
+        {
+            coinSpawner.StopSpawning();
+        }
+        if (obstacleSpawner != null)
+        {
+            obstacleSpawner.StopSpawning();
+        }
+        Debug.Log("YOU DIED");
     }
-  public int GetCurrentHealth()
+    public int GetCurrentHealth()
     {
         return currentHealth;
     }

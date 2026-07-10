@@ -50,11 +50,13 @@ public class Obstacle : MonoBehaviour
 
     private void KeepInsideBounds()
     {
-        Vector3 posiiton = transform.position;
+        Vector3 position = transform.position;
+
         if (position.x > movementRange || position.x < -movementRange)
         {
             moveDirection.x *= -1;
         }
+
         if (position.z > movementRange || position.z < -movementRange)
         {
             moveDirection.z *= -1;
