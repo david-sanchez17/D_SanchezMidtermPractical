@@ -1,71 +1,98 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 2.5f;
-    [SerializeField] private float changeDirectionTime = 2f;
+    //Movement
+    [SerializeField] private float minSpeed = 2f;
+    [SerializeField] private float maxSpeed = 6f;
     [SerializeField] private float movementRange = 18f;
-
-    [SerializeField] private int damageAmount = 10;
 
     private Rigidbody rb;
     private Vector3 moveDirection;
-    private float timer;
+    private float moveSpeed;
+    private int damageAmount;
 
-  private void Start()
+    private ObstacleSpawner spawner;
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        rb.useGravity = false;
         rb.freezeRotation = true;
+
+        moveSpeed = Random.Range(minSpeed, maxSpeed);
+        damageAmount = Random.Range(1, 6);
 
         PickNewDirection();
     }
 
     private void FixedUpdate()
     {
-        timer += Time.fixedDeltaTime;
-        if (timer >= changeDirectionTime)
-        {
-            PickNewDirection();
-            timer = 0f;
-        }
-
         Move();
-    
     }
+
     private void PickNewDirection()
     {
-        moveDirection = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
+        moveDirection = Random.insideUnitSphere;
+        moveDirection.y = 0f;
+        moveDirection.Normalize();
     }
 
     private void Move()
     {
-        Vector3 velocity = moveDirection * moveSpeed;
-        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+        rb.linearVelocity = moveDirection * moveSpeed;
 
         KeepInsideBounds();
-
     }
 
     private void KeepInsideBounds()
     {
-        Vector3 pos = transform.position;
-        if (pos.x > movementRange || pos.x< -movementRange)
+        Vector3 posiiton = transform.position;
+        if (position.x > movementRange || position.x < -movementRange)
         {
-            moveDirection.x = -moveDirection.x;
+            moveDirection.x *= -1;
         }
-        if (pos.z > movementRange || pos.z < -movementRange)
+        if (position.z > movementRange || position.z < -movementRange)
         {
-            moveDirection.z = -moveDirection.z;
+            moveDirection.z *= -1;
         }
     }
-   private void OnCollisionEnter(Collision collision)
+
+    private void OnCollisionEnter(Collision collision)
     {
-        PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
-        if (player != null)
+        Debug.Log("Obstacle hit: " + collision.gameObject.name);
+
+        if (collision.gameObject.CompareTag("Player"))
         {
-            player.TakeDamage(damageAmount);
+            Debug.Log("Player hit!");
+            PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
+
+            if (player !=null)
+            {
+                player.TakeDamage(damageAmount);
+            }
+
+            DestroyObstacle();
+        }
+        else if (collision.gameObject.CompareTag("Wall"))
+        {
+            DestroyObstacle();
         }
     }
- 
+    private void DestroyObstacle()
+    {
+        if (spawner !=null)
+        {
+            spawner.ObstacleDestroyed();
+        }
+        Destroy(gameObject);
+    }
+
+    public void SetSpawner(ObstacleSpawner obstacleSpawner)
+    {
+        spawner = obstacleSpawner;
+    }
 }

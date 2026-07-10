@@ -2,39 +2,44 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    public static bool GameOver = false;
-
     [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private int numberOfObstacles = 5;
 
-    [SerializeField] private float minX = -18f;
-    [SerializeField] private float maxX = 18f;
-    [SerializeField] private float minZ = -18f;
-    [SerializeField] private float maxZ = 18f;
-    [SerializeField] private float spawnHeight = 0.5f;
-   
+    [SerializeField] private Transform[] spawnPoints;
 
-   private void Start() 
+    [SerializeField] private float spawnInterval = 2f;
+    [SerializeField] private int maxObstacles = 10;
+
+    private int currentObstacleCount;
+    private bool spawningEnabled = true;
+
+    private void Start()
     {
-        GameOver = false;
-        SpawnInitialObstacles();
+        InvokeRepeating(nameof(SpawnObstacle) 0f, spawnInterval);
     }
 
-    private void SpawnInitialObstacles()
+    private void SpawnObstacle()
     {
-        if (GameOver)
+        if (!spawningEnabled)
         {
             return;
         }
 
-        for (int i = 0; i < numberOfObstacles; i++)
+        if(currentObstacleCount >= maxObstacles)
         {
-            SpawnObstacle();
+            return;
         }
-    }
-    private void SpawnObstacle()
-    {
-        Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), spawnHeight, Random.Range(minZ, maxZ));
-        Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity);
+        if (spawnPoints.Length == 0)
+        {
+            return;
+        }
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject obstacle = Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity);
+        Obstacle obstacleScript = obstacle.GetComponent<Obstacle>();
+
+        if (obstacleScript != null)
+        {
+            obstacleScript.SetSpawner(this);
+        }
+        currentObstacleCount++;
     }
 }
