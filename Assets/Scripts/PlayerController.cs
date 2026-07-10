@@ -64,4 +64,9 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+    public void DisableMovement()
+    {
+        canMove = false;
+        rb.linearVelocity = Vector3.zero;
+    }
 }

@@ -2,40 +2,45 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    //Target
+    [SerializeField] private Transform target;
 
+    //Cam settings
     [SerializeField] private float distance = 6f;
-    [SerializeField] private float height = 2f;
-    [SerializeField] private float mouseSensitivity = 3f;
+    [SerializeField] private float mouseSensitivity = 150f;
     [SerializeField] private float minPitch = -30f;
-    [SerializeField] private float maxPitch = 70f;
-    private float yaw = 0f;
-    private float pitch = 20f;
+    [SerializeField] private float maxPitch = 60f;
 
-  private void Start()
+    private float yaw;
+    private float pitch;
+
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
 
-    // Update is called once per frame
-private void LateUpdate()
+        yaw = transform.eulerAngles.y;
+        pitch = transform.eulerAngles.x;
+    }
+    private void LateUpdate()
     {
-        if (player == null)
-        {
+        if (target == null)
             return;
-        }
-        yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-        pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        HandleCameraRotation();
+    }
+    private void HandleCameraRotation()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        yaw += mouseX;
+        pitch -= mouseY;
 
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
+        Vector3 position = target.position - (rotation * Vector3.forward * distance);
 
-        Vector3 targetPosition = player.position + Vector3.up * height;
-        Vector3 cameraOffset = rotation * new Vector3(0f, 0f, -distance);
-
-        transform.position = targetPosition + cameraOffset;
-        transform.LookAt(targetPosition);  
+        transform.position = position;
+        transform.rotation = rotation;
     }
 }
