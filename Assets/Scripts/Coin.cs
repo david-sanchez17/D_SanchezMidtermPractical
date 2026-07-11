@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    [Header("Coin Value")]
     [SerializeField] private int value = 1;
 
+    [Header("Animation")]
     [SerializeField] private float rotationSpeed = 100f;
     [SerializeField] private float bobHeight = 0.25f;
     [SerializeField] private float bobSpeed = 2f;

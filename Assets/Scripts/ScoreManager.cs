@@ -5,9 +5,11 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
+    [Header("Win Condition")]
     [SerializeField] private int winningScore = 50;
 
     //refs
+    [Header("References")]
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private ObstacleSpawner obstacleSpawner;
 

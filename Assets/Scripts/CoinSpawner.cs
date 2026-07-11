@@ -5,14 +5,17 @@ using UnityEngine;
 public class CoinSpawner : MonoBehaviour
 {
     //Coin prefabs
+    [Header("Coin Prefabs")]
     [SerializeField] private GameObject bronzeCoin;
     [SerializeField] private GameObject silverCoin;
     [SerializeField] private GameObject goldCoin;
 
+    [Header("Spawn Settings")]
     [SerializeField] private float spawnInterval = 3f;
     [SerializeField] private int startingCoins = 5;
     [SerializeField] private int maxCoins = 15;
 
+    [Header("Play Area")]
     [SerializeField] private float minX = -18f;
     [SerializeField] private float maxX = 18f;
     [SerializeField] private float minZ = -18f;

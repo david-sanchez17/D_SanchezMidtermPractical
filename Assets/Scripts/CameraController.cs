@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform target;
 
     //Cam settings
+    [Header("Camera Settings")]
     [SerializeField] private float distance = 6f;
     [SerializeField] private float mouseSensitivity = 150f;
     [SerializeField] private float minPitch = -30f;

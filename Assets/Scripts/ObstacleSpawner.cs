@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    [Header("Obstacle")]
     [SerializeField] private GameObject obstaclePrefab;
 
+    [Header("Spawn Points")]
     [SerializeField] private Transform[] spawnPoints;
 
+    [Header("Settings")]
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int maxObstacles = 10;
 

@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 public class Obstacle : MonoBehaviour
 {
     //Movement
+    [Header("Movement")]
     [SerializeField] private float minSpeed = 2f;
     [SerializeField] private float maxSpeed = 6f;
     [SerializeField] private float movementRange = 18f;
@@ -65,8 +66,6 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Obstacle hit: " + collision.gameObject.name);
-
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player hit!");
