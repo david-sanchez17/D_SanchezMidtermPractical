@@ -5,10 +5,9 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
-    [Header("Win Condition")]
     [SerializeField] private int winningScore = 50;
 
-    [Header("References")]
+    //refs
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private ObstacleSpawner obstacleSpawner;
 
@@ -27,16 +26,13 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-
     public void AddScore(int points)
     {
         if (hasWon)
         {
             return;
         }
-
         currentScore += points;
-
         Debug.Log("Score: " + currentScore);
 
         if (currentScore >= winningScore)
@@ -44,7 +40,6 @@ public class ScoreManager : MonoBehaviour
             WinGame();
         }
     }
-
 
     private void WinGame()
     {
@@ -59,8 +54,7 @@ public class ScoreManager : MonoBehaviour
         {
             obstacleSpawner.StopSpawning();
         }
-
-        Debug.Log("You win");
+        Debug.Log("You Win!");
     }
 
     public int GetScore()
